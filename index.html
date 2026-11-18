@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Conditionals Mastery</title>
+<link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                        cursive: ['"Caveat"', 'cursive'],
+                    },
+                    colors: {
+                        paper: {
+                            bg: '#F4F1EA',
+                            card: '#FDFBF7',
+                            border: '#E5DFD3',
+                            ink: '#2C2825',
+                            muted: '#6E665E',
+                            accent: '#B55D3D',
+                            gold: '#9E8255',
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        /* Subtle paper grain background texture */
+        body {
+            background-color: #F4F1EA;
+            background-image:
+                radial-gradient(rgba(158, 130, 85, 0.08) 1px, transparent 0),
+                radial-gradient(rgba(44, 40, 37, 0.03) 1px, transparent 0),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(235, 228, 214, 0.35) 100%);
+            background-size: 28px 28px, 14px 14px, 100% 100%;
+            background-position: 0 0, 7px 7px, 0 0;
+            color: #2C2825;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Elevated cream paper sheet with multi-layered shadow */
+        .paper-sheet {
+            background-color: #FDFBF7;
+            border: 1px solid #E5DFD3;
+            box-shadow:
+                0 1px 2px rgba(44, 40, 37, 0.04),
+                0 8px 20px rgba(44, 40, 37, 0.05),
+                0 24px 48px -12px rgba(92, 77, 56, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            position: relative;
+        }
+
+        /* Subtle double-line editorial accent on top of paper */
+        .paper-sheet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 24px;
+            right: 24px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #D7CBB8 15%, #B89D72 50%, #D7CBB8 85%, transparent);
+            border-radius: 0 0 4px 4px;
+            opacity: 0.7;
+        }
+
+        /* Premium module cards */
+        .module-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5DFD3;
+            box-shadow:
+                0 2px 6px rgba(44, 40, 37, 0.03),
+                0 6px 16px -4px rgba(92, 77, 56, 0.06);
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.25s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            border-color: #CBBBA0;
+            box-shadow:
+                0 12px 24px -6px rgba(92, 77, 56, 0.14),
+                0 4px 10px -2px rgba(44, 40, 37, 0.05);
+        }
+
+        .module-card:active {
+            transform: translateY(-2px);
+        }
+
+        /* Sentence card row */
+        .sentence-item {
+            background-color: rgba(255, 255, 255, 0.65);
+            border: 1px solid #ECE6DA;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+
+        .sentence-item:hover {
+            background-color: #FFFFFF;
+            border-color: #DFD5C3;
+            box-shadow: 0 6px 18px -8px rgba(92, 77, 56, 0.1);
+        }
+
+        /* Inline blank input styling */
+        .blank-input {
+            background-color: #FAF7F0;
+            border: 1px solid #DCD3C4;
+            border-bottom: 2px solid #B8AA95;
+            border-radius: 8px;
+            padding: 3px 10px;
+            color: #2C2825;
+            font-weight: 600;
+            font-size: 0.98rem;
+            text-align: center;
+            transition: all 0.22s ease;
+            min-width: 92px;
+            max-width: 100%;
+        }
+
+        .blank-input:focus {
+            outline: none;
+            background-color: #FFFFFF;
+            border-color: #9E8255;
+            border-bottom-color: #8C6D3F;
+            box-shadow: 0 0 0 3px rgba(158, 130, 85, 0.16);
+        }
+
+        /* Correct state: soft green, locked */
+        .blank-input.is-correct {
+            background-color: #ECFDF5;
+            border-color: #A7F3D0;
+            border-bottom-color: #10B981;
+            color: #065F46;
+            cursor: default;
+            padding-right: 26px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+        }
+
+        /* Incorrect state: soft red, editable */
+        .blank-input.is-incorrect {
+            background-color: #FEF2F2;
+            border-color: #FECACA;
+            border-bottom-color: #EF4444;
+            color: #991B1B;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.08);
+        }
+
+        /* Cursive base verb in parentheses */
+        .verb-cue {
+            font-family: 'Caveat', cursive;
+            font-size: 1.48rem;
+            font-weight: 600;
+            color: #B55D3D;
+            line-height: 1;
+            letter-spacing: 0.01em;
+            user-select: none;
+        }
+
+        /* Name input highlight on validation error */
+        .name-error {
+            border-color: #EF4444 !important;
+            background-color: #FEF2F2 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.14) !important;
+        }
+
+        /* Buttons */
+        .btn-dark {
+            background: linear-gradient(180deg, #332E2A 0%, #211E1B 100%);
+            color: #FDFBF7;
+            box-shadow: 0 4px 12px rgba(33, 30, 27, 0.18);
+            transition: all 0.25s ease;
+        }
+
+        .btn-dark:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(33, 30, 27, 0.24);
+            background: linear-gradient(180deg, #3F3934 0%, #2A2622 100%);
+        }
+
+        .btn-telegram {
+            background: linear-gradient(180deg, #9E8255 0%, #836940 100%);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(131, 105, 64, 0.24);
+            transition: all 0.25s ease;
+        }
+
+        .btn-telegram:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(131, 105, 64, 0.32);
+            background: linear-gradient(180deg, #AB8E5E 0%, #8F7347 100%);
+        }
+
+        .btn-dark:disabled,
+        .btn-telegram:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Smooth view fade */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.32s ease-out forwards;
+        }
+
+        /* Smooth hint dropdown */
+        .hint-box {
+            animation: fadeUp 0.2s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-6 px-3 sm:px-6 md:py-12 flex items-start justify-center">
+
+    <!-- Main Paper Sheet Container -->
+    <main class="paper-sheet w-full max-w-4xl rounded-2xl p-6 sm:p-10 md:p-14">
+
+        <!-- ==================== HOME VIEW ==================== -->
+        <section id="home-view" class="animate-fade-up">
+            <!-- Editorial Header -->
+            <header class="text-center max-w-2xl mx-auto mb-10">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F4EFE4] border border-[#E5DFD3] text-[#8A7148] text-xs font-semibold uppercase tracking-widest mb-4">
+                    <span>Grammar Workbook</span>
+                    <span class="w-1 h-1 rounded-full bg-[#B55D3D]"></span>
+                    <span>B1 – B2</span>
+                </div>
+                <h1 class="font-serif text-3xl sm:text-5xl font-bold text-[#2C2825] tracking-tight mb-4">
+                    English Conditionals Mastery
+                </h1>
+                <p class="text-[#6E665E] text-base sm:text-lg leading-relaxed">
+                    Refine your accuracy across Zero, First, Second, and Third Conditionals. Fill in each blank using the base verb in parentheses, check your progress, and submit your results directly to your teacher.
+                </p>
+            </header>
+
+            <!-- Prominent Student Name Bar -->
+            <div class="max-w-xl mx-auto mb-10 bg-white/90 border border-[#E5DFD3] rounded-2xl p-5 shadow-sm">
+                <label for="home-student-name" class="block text-xs font-bold uppercase tracking-wider text-[#8A7148] mb-2">
+                    Student Name
+                </label>
+                <div class="relative flex items-center">
+                    <svg class="w-5 h-5 text-[#A59885] absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <input
+                        type="text"
+                        id="home-student-name"
+                        placeholder="Enter your full name (e.g. Anna Kovalenko)"
+                        autocomplete="name"
+                        class="w-full pl-11 pr-4 py-3 rounded-xl bg-[#FAF7F0] border border-[#DCD3C4] text-[#2C2825] placeholder-[#A89F92] font-medium focus:outline-none focus:bg-white focus:border-[#9E8255] focus:ring-4 focus:ring-[#9E8255]/15 transition-all"
+                    >
+                </div>
+                <p class="text-xs text-[#857D73] mt-2">
+                    Your name is saved automatically and synced across all four exercises.
+                </p>
+            </div>
+
+            <!-- 2x2 Exercise Modules Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+                <!-- Exercise 1 -->
+                <button type="button" onclick="openExercise('ex1')" class="module-card rounded-2xl p-6 sm:p-7 text-left flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-[#F5EFE4] text-[#8A7148] border border-[#E6DCCB]">
+                                Exercise 1
+                            </span>
+                            <span class="text-xs font-medium text-[#857D73] flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#B55D3D]"></span>
+                                8 sentences
+                            </span>
+                        </div>
+                        <h2 class="font-serif text-2xl font-semibold text-[#2C2825] mb-2 group-hover:text-[#8A6D3F] transition-colors">
+                            Zero &amp; First Conditionals
+                        </h2>
+                        <p class="text-sm text-[#6E665E] leading-relaxed">
+                            Practice scientific facts, general truths, and real future possibilities.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-[#F0EAE0] flex items-center justify-between text-sm font-semibold text-[#2C2825]">
+                        <span>Start Practice</span>
+                        <svg class="w-4 h-4 text-[#9E8255] transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- Exercise 2 -->
+                <button type="button" onclick="openExercise('ex2')" class="module-card rounded-2xl p-6 sm:p-7 text-left flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-[#F5EFE4] text-[#8A7148] border border-[#E6DCCB]">
+                                Exercise 2
+                            </span>
+                            <span class="text-xs font-medium text-[#857D73] flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#B55D3D]"></span>
+                                8 sentences
+                            </span>
+                        </div>
+                        <h2 class="font-serif text-2xl font-semibold text-[#2C2825] mb-2 group-hover:text-[#8A6D3F] transition-colors">
+                            Second &amp; Third Conditionals
+                        </h2>
+                        <p class="text-sm text-[#6E665E] leading-relaxed">
+                            Master imaginary present scenarios, advice, and hypothetical past regrets.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-[#F0EAE0] flex items-center justify-between text-sm font-semibold text-[#2C2825]">
+                        <span>Start Practice</span>
+                        <svg class="w-4 h-4 text-[#9E8255] transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- Exercise 3 -->
+                <button type="button" onclick="openExercise('ex3')" class="module-card rounded-2xl p-6 sm:p-7 text-left flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-[#F5EFE4] text-[#8A7148] border border-[#E6DCCB]">
+                                Exercise 3
+                            </span>
+                            <span class="text-xs font-medium text-[#857D73] flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#B55D3D]"></span>
+                                12 sentences
+                            </span>
+                        </div>
+                        <h2 class="font-serif text-2xl font-semibold text-[#2C2825] mb-2 group-hover:text-[#8A6D3F] transition-colors">
+                            Mixed Conditionals — Set A
+                        </h2>
+                        <p class="text-sm text-[#6E665E] leading-relaxed">
+                            A comprehensive mix combining Zero, First, Second, and Third Conditionals.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-[#F0EAE0] flex items-center justify-between text-sm font-semibold text-[#2C2825]">
+                        <span>Start Practice</span>
+                        <svg class="w-4 h-4 text-[#9E8255] transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- Exercise 4 -->
+                <button type="button" onclick="openExercise('ex4')" class="module-card rounded-2xl p-6 sm:p-7 text-left flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-[#F5EFE4] text-[#8A7148] border border-[#E6DCCB]">
+                                Exercise 4
+                            </span>
+                            <span class="text-xs font-medium text-[#857D73] flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#B55D3D]"></span>
+                                12 sentences
+                            </span>
+                        </div>
+                        <h2 class="font-serif text-2xl font-semibold text-[#2C2825] mb-2 group-hover:text-[#8A6D3F] transition-colors">
+                            Mixed Conditionals — Set B
+                        </h2>
+                        <p class="text-sm text-[#6E665E] leading-relaxed">
+                            Extended mixed practice to solidify all four conditional structures.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-[#F0EAE0] flex items-center justify-between text-sm font-semibold text-[#2C2825]">
+                        <span>Start Practice</span>
+                        <svg class="w-4 h-4 text-[#9E8255] transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== EXERCISE VIEW ==================== -->
+        <section id="exercise-view" class="hidden animate-fade-up">
+            <!-- Top Navigation & Synced Name Field -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-[#EAE3D5]">
+                <button type="button" onclick="goHome()" class="inline-flex items-center gap-2 text-sm font-semibold text-[#6E665E] hover:text-[#2C2825] transition-colors self-start py-2 pr-3 rounded-lg">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>Back to Menu</span>
+                </button>
+
+                <!-- Synced Student Name Input -->
+                <div class="flex items-center gap-2.5 w-full sm:w-auto">
+                    <label for="exercise-student-name" class="text-xs font-bold uppercase tracking-wider text-[#8A7148] whitespace-nowrap">
+                        Student:
+                    </label>
+                    <input
+                        type="text"
+                        id="exercise-student-name"
+                        placeholder="Enter your name"
+                        autocomplete="name"
+                        class="w-full sm:w-56 px-3.5 py-2 rounded-xl bg-[#FAF7F0] border border-[#DCD3C4] text-sm font-medium text-[#2C2825] placeholder-[#A89F92] focus:outline-none focus:bg-white focus:border-[#9E8255] focus:ring-3 focus:ring-[#9E8255]/15 transition-all"
+                    >
+                </div>
+            </div>
+
+            <!-- Exercise Heading & Instructions -->
+            <header class="mb-8">
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                    <span id="exercise-badge" class="px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-[#F5EFE4] text-[#8A7148] border border-[#E6DCCB]"></span>
+                    <span id="exercise-count-badge" class="text-xs font-medium text-[#857D73]"></span>
+                </div>
+                <h2 id="exercise-title" class="font-serif text-3xl sm:text-4xl font-bold text-[#2C2825] mb-3"></h2>
+                <p class="text-sm sm:text-base text-[#6E665E] leading-relaxed">
+                    Put the verbs in parentheses into the correct conditional form. Both full forms (e.g., <span class="font-medium text-[#2C2825]">will stay</span>, <span class="font-medium text-[#2C2825]">would not have missed</span>) and contractions (e.g., <span class="font-medium text-[#2C2825]">'ll stay</span>, <span class="font-medium text-[#2C2825]">wouldn't have missed</span>) are accepted. Click <span class="font-medium text-[#2C2825]">Hint</span> if you need a reminder.
+                </p>
+            </header>
+
+            <!-- Sentences List -->
+            <div id="sentences-container" class="space-y-4 mb-10">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Score & Progress Summary Banner -->
+            <div id="score-banner" class="hidden mb-8 rounded-2xl p-5 bg-[#FAF7F0] border border-[#E5DFD3] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <p id="score-headline" class="font-serif text-xl font-bold text-[#2C2825]"></p>
+                    <p id="score-subtext" class="text-sm text-[#6E665E] mt-0.5"></p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 text-xs font-semibold">
+                    <span id="stat-attempts" class="px-3 py-1.5 rounded-lg bg-white border border-[#E5DFD3] text-[#6E665E]">Attempts: 0</span>
+                    <span id="stat-mistakes" class="px-3 py-1.5 rounded-lg bg-white border border-[#E5DFD3] text-[#6E665E]">Mistakes: 0</span>
+                    <span id="stat-hints" class="px-3 py-1.5 rounded-lg bg-white border border-[#E5DFD3] text-[#6E665E]">Hints used: 0</span>
+                </div>
+            </div>
+
+            <!-- Status / Validation Feedback Message Box -->
+            <div id="status-message" class="hidden mb-6 rounded-xl px-4 py-3.5 text-sm font-medium border flex items-center gap-3">
+                <span id="status-icon" class="flex-shrink-0"></span>
+                <span id="status-text"></span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 pt-2">
+                <button type="button" id="btn-check" onclick="checkAnswers()" class="btn-dark px-8 py-3.5 rounded-xl font-semibold text-sm sm:text-base tracking-wide flex items-center justify-center gap-2.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>Check Answers</span>
+                </button>
+
+                <button type="button" id="btn-send-telegram" onclick="sendResultsToTeacher()" class="btn-telegram px-8 py-3.5 rounded-xl font-semibold text-sm sm:text-base tracking-wide flex items-center justify-center gap-2.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                    </svg>
+                    <span id="btn-send-label">Send Results to Teacher</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // === TELEGRAM SETTINGS ===
+        // Replace these two placeholder values with your actual Telegram Bot Token and Chat ID.
+        const TELEGRAM_BOT_TOKEN = '9000524592:AAFGz0I36Xc4XS2Y4qyNMfQzaxaWZMkLxGU';
+        const TELEGRAM_CHAT_ID = '749833850';
+
+        // === EXERCISE DATABASE ===
+        // Each sentence uses an array of segments: plain text strings or blank objects { verb, answers }
+        const EXERCISES = {
+            ex1: {
+                badge: 'Exercise 1',
+                title: 'Zero & First Conditionals',
+                sentences: [
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'heat', answers: ['heat'] },
+                            ' water to 100 degrees, it ',
+                            { verb: 'boil', answers: ['boils'] },
+                            '.'
+                        ],
+                        hint: 'Zero Conditional (scientific fact: Present Simple + Present Simple).'
+                    },
+                    {
+                        segments: [
+                            'If it ',
+                            { verb: 'rain', answers: ['rains'] },
+                            ' tomorrow, we ',
+                            { verb: 'stay', answers: ['will stay', "'ll stay"] },
+                            ' at home.'
+                        ],
+                        hint: 'First Conditional (real future possibility: Present Simple + will + verb).'
+                    },
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'mix', answers: ['mix'] },
+                            ' red and yellow, you ',
+                            { verb: 'get', answers: ['get'] },
+                            ' orange.'
+                        ],
+                        hint: 'Zero Conditional (general truth: Present Simple + Present Simple).'
+                    },
+                    {
+                        segments: [
+                            'If she ',
+                            { verb: 'study', answers: ['studies'] },
+                            ' hard, she ',
+                            { verb: 'pass', answers: ['will pass', "'ll pass"] },
+                            ' the exam.'
+                        ],
+                        hint: 'First Conditional (real future possibility: Present Simple + will + verb).'
+                    },
+                    {
+                        segments: [
+                            'If babies ',
+                            { verb: 'be', answers: ['are'] },
+                            ' hungry, they ',
+                            { verb: 'cry', answers: ['cry'] },
+                            '.'
+                        ],
+                        hint: 'Zero Conditional (general fact: Present Simple + Present Simple).'
+                    },
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'have', answers: ['have'] },
+                            ' time later, I ',
+                            { verb: 'call', answers: ['will call', "'ll call"] },
+                            ' you.'
+                        ],
+                        hint: 'First Conditional (future plan/promise: Present Simple + will + verb).'
+                    },
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'freeze', answers: ['freeze'] },
+                            ' water, it ',
+                            { verb: 'turn', answers: ['turns'] },
+                            ' into ice.'
+                        ],
+                        hint: 'Zero Conditional (scientific fact: Present Simple + Present Simple).'
+                    },
+                    {
+                        segments: [
+                            'If we ',
+                            { verb: 'not / hurry', answers: ["don't hurry", 'do not hurry'] },
+                            ', we ',
+                            { verb: 'miss', answers: ['will miss', "'ll miss"] },
+                            ' the train.'
+                        ],
+                        hint: 'First Conditional (likely future consequence: Present Simple negative + will + verb).'
+                    }
+                ]
+            },
+            ex2: {
+                badge: 'Exercise 2',
+                title: 'Second & Third Conditionals',
+                sentences: [
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'have', answers: ['had'] },
+                            ' a million dollars, I ',
+                            { verb: 'buy', answers: ['would buy', "'d buy"] },
+                            ' a big house.'
+                        ],
+                        hint: 'Second Conditional (imaginary present/future: Past Simple + would + verb).'
+                    },
+                    {
+                        segments: [
+                            'If she ',
+                            { verb: 'know', answers: ['had known', "'d known"] },
+                            ' about the meeting, she ',
+                            { verb: 'come', answers: ['would have come', "'d have come", "would've come"] },
+                            '.'
+                        ],
+                        hint: 'Third Conditional (unreal past: Past Perfect + would have + V3).'
+                    },
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'be', answers: ['were', 'was'] },
+                            ' you, I ',
+                            { verb: 'talk', answers: ['would talk', "'d talk"] },
+                            ' to him.'
+                        ],
+                        hint: 'Second Conditional (advice/hypothetical: Past Simple + would + verb).'
+                    },
+                    {
+                        segments: [
+                            'If they ',
+                            { verb: 'leave', answers: ['had left', "'d left"] },
+                            ' earlier, they ',
+                            { verb: 'not / miss', answers: ["wouldn't have missed", 'would not have missed'] },
+                            ' the flight.'
+                        ],
+                        hint: "Third Conditional (past regret: Past Perfect + wouldn't have + V3)."
+                    },
+                    {
+                        segments: [
+                            'If he ',
+                            { verb: 'speak', answers: ['spoke'] },
+                            ' perfect English, he ',
+                            { verb: 'get', answers: ['would get', "'d get"] },
+                            ' that job.'
+                        ],
+                        hint: 'Second Conditional (hypothetical present: Past Simple + would + verb).'
+                    },
+                    {
+                        segments: [
+                            'If we ',
+                            { verb: 'study', answers: ['had studied', "'d studied"] },
+                            ' harder, we ',
+                            { verb: 'pass', answers: ['would have passed', "'d have passed", "would've passed"] },
+                            ' the test.'
+                        ],
+                        hint: 'Third Conditional (unreal past result: Past Perfect + would have + V3).'
+                    },
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'meet', answers: ['met'] },
+                            ' a famous actor, I ',
+                            { verb: 'ask', answers: ['would ask', "'d ask"] },
+                            ' for a photo.'
+                        ],
+                        hint: 'Second Conditional (unlikely situation: Past Simple + would + verb).'
+                    },
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'not / forget', answers: ["hadn't forgotten", 'had not forgotten'] },
+                            ' the map, we ',
+                            { verb: 'not / get', answers: ["wouldn't have got", 'would not have got', "wouldn't have gotten", 'would not have gotten'] },
+                            ' lost.'
+                        ],
+                        hint: "Third Conditional (unreal past: Past Perfect negative + wouldn't have + V3)."
+                    }
+                ]
+            },
+            ex3: {
+                badge: 'Exercise 3',
+                title: 'Mixed Conditionals — Set A',
+                sentences: [
+                    {
+                        segments: [
+                            'If it ',
+                            { verb: 'be', answers: ['is', "'s"] },
+                            ' cold tomorrow, I ',
+                            { verb: 'wear', answers: ['will wear', "'ll wear"] },
+                            ' a jacket.'
+                        ],
+                        hint: 'First Conditional (real future weather).'
+                    },
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'have', answers: ['had'] },
+                            ' more free time, I ',
+                            { verb: 'read', answers: ['would read', "'d read"] },
+                            ' more books.'
+                        ],
+                        hint: 'Second Conditional (imaginary present situation).'
+                    },
+                    {
+                        segments: [
+                            'If they ',
+                            { verb: 'ask', answers: ['had asked', "'d asked"] },
+                            ' me, I ',
+                            { verb: 'help', answers: ['would have helped', "'d have helped", "would've helped"] },
+                            ' them.'
+                        ],
+                        hint: 'Third Conditional (unreal past situation).'
+                    },
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'touch', answers: ['touch'] },
+                            ' a fire, you ',
+                            { verb: 'get', answers: ['get'] },
+                            ' burned.'
+                        ],
+                        hint: 'Zero Conditional (always true physical fact).'
+                    },
+                    {
+                        segments: [
+                            'If she ',
+                            { verb: 'not / call', answers: ["doesn't call", 'does not call'] },
+                            ' me, I ',
+                            { verb: 'not / go', answers: ["won't go", 'will not go'] },
+                            ' to the party.'
+                        ],
+                        hint: 'First Conditional (real future condition).'
+                    },
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'know', answers: ['knew'] },
+                            ' his number, I ',
+                            { verb: 'call', answers: ['would call', "'d call"] },
+                            ' him.'
+                        ],
+                        hint: "Second Conditional (unreal present: I don't know it now)."
+                    },
+                    {
+                        segments: [
+                            'If we ',
+                            { verb: 'take', answers: ['had taken', "'d taken"] },
+                            ' a taxi, we ',
+                            { verb: 'arrive', answers: ['would have arrived', "'d have arrived", "would've arrived"] },
+                            ' on time.'
+                        ],
+                        hint: "Third Conditional (unreal past: we didn't take a taxi)."
+                    },
+                    {
+                        segments: [
+                            'If people ',
+                            { verb: 'eat', answers: ['eat'] },
+                            ' too much, they ',
+                            { verb: 'get', answers: ['get'] },
+                            ' fat.'
+                        ],
+                        hint: 'Zero Conditional (general truth).'
+                    },
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'study', answers: ['study'] },
+                            ' today, you ',
+                            { verb: 'be', answers: ['will be', "'ll be"] },
+                            ' free tomorrow.'
+                        ],
+                        hint: 'First Conditional (real future result).'
+                    },
+                    {
+                        segments: [
+                            'If he ',
+                            { verb: 'be', answers: ['were', 'was'] },
+                            ' taller, he ',
+                            { verb: 'play', answers: ['would play', "'d play"] },
+                            ' basketball.'
+                        ],
+                        hint: 'Second Conditional (imaginary present trait).'
+                    },
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'see', answers: ['had seen', "'d seen"] },
+                            ' you, I ',
+                            { verb: 'say', answers: ['would have said', "'d have said", "would've said"] },
+                            ' hello.'
+                        ],
+                        hint: 'Third Conditional (unreal past event).'
+                    },
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'drop', answers: ['drop'] },
+                            ' ice in water, it ',
+                            { verb: 'float', answers: ['floats'] },
+                            '.'
+                        ],
+                        hint: 'Zero Conditional (scientific fact).'
+                    }
+                ]
+            },
+            ex4: {
+                badge: 'Exercise 4',
+                title: 'Mixed Conditionals — Set B',
+                sentences: [
+                    {
+                        segments: [
+                            'If she ',
+                            { verb: 'go', answers: ['had gone', "'d gone"] },
+                            ' to university, she ',
+                            { verb: 'become', answers: ['would have become', "'d have become", "would've become"] },
+                            ' a doctor.'
+                        ],
+                        hint: 'Third Conditional (unreal past choice).'
+                    },
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'win', answers: ['won'] },
+                            ' the lottery, I ',
+                            { verb: 'travel', answers: ['would travel', "'d travel"] },
+                            ' the world.'
+                        ],
+                        hint: 'Second Conditional (unlikely dream).'
+                    },
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'press', answers: ['press'] },
+                            ' this button, the machine ',
+                            { verb: 'start', answers: ['starts'] },
+                            '.'
+                        ],
+                        hint: 'Zero Conditional (how a machine always works).'
+                    },
+                    {
+                        segments: [
+                            'If it ',
+                            { verb: 'snow', answers: ['snows'] },
+                            ' this weekend, we ',
+                            { verb: 'build', answers: ['will build', "'ll build"] },
+                            ' a snowman.'
+                        ],
+                        hint: 'First Conditional (real future possibility).'
+                    },
+                    {
+                        segments: [
+                            'If he ',
+                            { verb: 'drive', answers: ['had driven', "'d driven"] },
+                            ' more carefully, he ',
+                            { verb: 'not / crash', answers: ["wouldn't have crashed", 'would not have crashed'] },
+                            '.'
+                        ],
+                        hint: 'Third Conditional (past accident).'
+                    },
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'live', answers: ['lived'] },
+                            ' in Italy, I ',
+                            { verb: 'eat', answers: ['would eat', "'d eat"] },
+                            ' pizza every day.'
+                        ],
+                        hint: 'Second Conditional (hypothetical present).'
+                    },
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'leave', answers: ['leave'] },
+                            ' ice in the sun, it ',
+                            { verb: 'melt', answers: ['melts'] },
+                            '.'
+                        ],
+                        hint: 'Zero Conditional (scientific fact).'
+                    },
+                    {
+                        segments: [
+                            'If she ',
+                            { verb: 'invite', answers: ['invites'] },
+                            ' me, I ',
+                            { verb: 'go', answers: ['will go', "'ll go"] },
+                            ' to her wedding.'
+                        ],
+                        hint: 'First Conditional (real future event).'
+                    },
+                    {
+                        segments: [
+                            'If we ',
+                            { verb: 'know', answers: ['had known', "'d known"] },
+                            ' the truth, we ',
+                            { verb: 'act', answers: ['would have acted', "'d have acted", "would've acted"] },
+                            ' differently.'
+                        ],
+                        hint: 'Third Conditional (unreal past).'
+                    },
+                    {
+                        segments: [
+                            'If I ',
+                            { verb: 'have', answers: ['had'] },
+                            ' a car, I ',
+                            { verb: 'drive', answers: ['would drive', "'d drive"] },
+                            ' to work.'
+                        ],
+                        hint: 'Second Conditional (unreal present).'
+                    },
+                    {
+                        segments: [
+                            'If you ',
+                            { verb: 'not / water', answers: ["don't water", 'do not water'] },
+                            ' plants, they ',
+                            { verb: 'die', answers: ['die'] },
+                            '.'
+                        ],
+                        hint: 'Zero Conditional (general biological fact).'
+                    },
+                    {
+                        segments: [
+                            'If he ',
+                            { verb: 'finish', answers: ['finishes'] },
+                            ' his homework, he ',
+                            { verb: 'play', answers: ['will play', "'ll play"] },
+                            ' video games.'
+                        ],
+                        hint: 'First Conditional (real future condition).'
+                    }
+                ]
+            }
+        };
+
+        // === APPLICATION STATE ===
+        const STORAGE_KEY_NAME = 'conditionals_student_name';
+        let currentExerciseId = null;
+        let checkAttempts = 0;
+        let totalMistakes = 0;
+        let hintsOpenedSet = new Set();
+
+        // === DOM REFERENCES ===
+        const homeView = document.getElementById('home-view');
+        const exerciseView = document.getElementById('exercise-view');
+        const homeNameInput = document.getElementById('home-student-name');
+        const exerciseNameInput = document.getElementById('exercise-student-name');
+        const exerciseBadge = document.getElementById('exercise-badge');
+        const exerciseCountBadge = document.getElementById('exercise-count-badge');
+        const exerciseTitle = document.getElementById('exercise-title');
+        const sentencesContainer = document.getElementById('sentences-container');
+        const scoreBanner = document.getElementById('score-banner');
+        const scoreHeadline = document.getElementById('score-headline');
+        const scoreSubtext = document.getElementById('score-subtext');
+        const statAttempts = document.getElementById('stat-attempts');
+        const statMistakes = document.getElementById('stat-mistakes');
+        const statHints = document.getElementById('stat-hints');
+        const statusMessage = document.getElementById('status-message');
+        const statusIcon = document.getElementById('status-icon');
+        const statusText = document.getElementById('status-text');
+        const btnSendTelegram = document.getElementById('btn-send-telegram');
+        const btnSendLabel = document.getElementById('btn-send-label');
+
+        // === INITIALIZATION & NAME SYNCING ===
+        function initNameSync() {
+            let savedName = '';
+            try {
+                savedName = localStorage.getItem(STORAGE_KEY_NAME) || '';
+            } catch (e) {
+                // Ignore localStorage restrictions if running in sandboxed iframe
+            }
+            homeNameInput.value = savedName;
+            exerciseNameInput.value = savedName;
+
+            const syncHandler = (source, target) => {
+                const val = source.value;
+                target.value = val;
+                source.classList.remove('name-error');
+                target.classList.remove('name-error');
+                try {
+                    localStorage.setItem(STORAGE_KEY_NAME, val);
+                } catch (e) {
+                    // Ignore storage errors
+                }
+            };
+
+            homeNameInput.addEventListener('input', () => syncHandler(homeNameInput, exerciseNameInput));
+            exerciseNameInput.addEventListener('input', () => syncHandler(exerciseNameInput, homeNameInput));
+        }
+
+        // === NAVIGATION ===
+        function goHome() {
+            exerciseView.classList.add('hidden');
+            homeView.classList.remove('hidden');
+            hideStatusMessage();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openExercise(exerciseId) {
+            const exercise = EXERCISES[exerciseId];
+            if (!exercise) return;
+
+            currentExerciseId = exerciseId;
+            checkAttempts = 0;
+            totalMistakes = 0;
+            hintsOpenedSet = new Set();
+
+            exerciseBadge.textContent = exercise.badge;
+            exerciseCountBadge.textContent = `${exercise.sentences.length} sentences`;
+            exerciseTitle.textContent = exercise.title;
+
+            renderSentences(exercise.sentences);
+
+            scoreBanner.classList.add('hidden');
+            hideStatusMessage();
+            exerciseNameInput.classList.remove('name-error');
+
+            homeView.classList.add('hidden');
+            exerciseView.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // === RENDERING SENTENCES ===
+        function renderSentences(sentences) {
+            sentencesContainer.innerHTML = '';
+
+            sentences.forEach((sentence, sIdx) => {
+                const card = document.createElement('div');
+                card.className = 'sentence-item rounded-2xl p-4 sm:p-5';
+                card.dataset.sentenceIndex = sIdx;
+
+                // Top row: sentence content + Hint button
+                const topRow = document.createElement('div');
+                topRow.className = 'flex items-start justify-between gap-3';
+
+                const lineWrap = document.createElement('div');
+                lineWrap.className = 'flex items-baseline flex-wrap gap-y-2.5 text-base sm:text-[1.06rem] leading-relaxed text-[#2C2825] flex-1';
+
+                // Sentence number
+                const numSpan = document.createElement('span');
+                numSpan.className = 'font-serif font-bold text-[#9E8255] mr-2.5 select-none min-w-[1.5rem]';
+                numSpan.textContent = `${sIdx + 1}.`;
+                lineWrap.appendChild(numSpan);
+
+                // Segments (text and blanks)
+                let blankCounter = 0;
+                sentence.segments.forEach(seg => {
+                    if (typeof seg === 'string') {
+                        const textSpan = document.createElement('span');
+                        textSpan.className = 'whitespace-pre-wrap';
+                        textSpan.textContent = seg;
+                        lineWrap.appendChild(textSpan);
+                    } else {
+                        const blankWrapper = document.createElement('span');
+                        blankWrapper.className = 'inline-flex items-baseline gap-1.5 mx-0.5 flex-wrap';
+
+                        // Calculate dynamic input width based on longest accepted answer
+                        const longestLen = Math.max(...seg.answers.map(a => a.length));
+                        const widthPx = Math.min(220, Math.max(96, longestLen * 10 + 28));
+
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.className = 'blank-input';
+                        input.style.width = `${widthPx}px`;
+                        input.autocomplete = 'off';
+                        input.autocorrect = 'off';
+                        input.autocapitalize = 'off';
+                        input.spellcheck = false;
+                        input.dataset.sentenceIndex = sIdx;
+                        input.dataset.blankIndex = blankCounter;
+                        input.dataset.answers = JSON.stringify(seg.answers);
+                        input.dataset.verb = seg.verb;
+                        input.setAttribute('aria-label', `Sentence ${sIdx + 1}, blank ${blankCounter + 1}, base verb ${seg.verb}`);
+
+                        // Clear red error border when student edits an incorrect field
+                        input.addEventListener('input', () => {
+                            if (!input.readOnly) {
+                                input.classList.remove('is-incorrect');
+                            }
+                        });
+
+                        const verbSpan = document.createElement('span');
+                        verbSpan.className = 'verb-cue';
+                        verbSpan.textContent = `(${seg.verb})`;
+
+                        blankWrapper.appendChild(input);
+                        blankWrapper.appendChild(verbSpan);
+                        lineWrap.appendChild(blankWrapper);
+
+                        blankCounter++;
+                    }
+                });
+
+                // Hint button
+                const hintBtn = document.createElement('button');
+                hintBtn.type = 'button';
+                hintBtn.className = 'flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#8A7148] bg-[#F5EFE4] hover:bg-[#ECE2D0] border border-[#E6DCCB] transition-colors mt-0.5';
+                hintBtn.innerHTML = `
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                    <span>Hint</span>
+                `;
+
+                // Hint callout box
+                const hintBox = document.createElement('div');
+                hintBox.className = 'hint-box hidden mt-3.5 px-4 py-2.5 rounded-xl bg-[#FBF7EE] border border-[#E8DEC9] text-sm text-[#735D3B] flex items-start gap-2';
+                hintBox.innerHTML = `
+                    <span class="font-bold text-[#9E8255] uppercase text-xs tracking-wider mt-0.5">Hint:</span>
+                    <span>${escapeHtml(sentence.hint)}</span>
+                `;
+
+                hintBtn.addEventListener('click', () => {
+                    const willOpen = hintBox.classList.contains('hidden');
+                    hintBox.classList.toggle('hidden');
+                    if (willOpen) {
+                        hintsOpenedSet.add(sIdx);
+                        updateStatsBarOnly();
+                    }
+                });
+
+                topRow.appendChild(lineWrap);
+                topRow.appendChild(hintBtn);
+                card.appendChild(topRow);
+                card.appendChild(hintBox);
+                sentencesContainer.appendChild(card);
+            });
+        }
+
+        // === NORMALIZATION & CHECK LOGIC ===
+        function normalizeAnswer(str) {
+            return str
+                .replace(/[\u2018\u2019\u02BC`]/g, "'") // Normalize curly/smart apostrophes
+                .toLowerCase()
+                .trim()
+                .replace(/\s+/g, ' ');
+        }
+
+        function checkAnswers(countAsAttempt = true) {
+            if (!currentExerciseId) return null;
+
+            const inputs = Array.from(sentencesContainer.querySelectorAll('.blank-input'));
+            let roundMistakes = 0;
+
+            if (countAsAttempt) {
+                checkAttempts++;
+            }
+
+            inputs.forEach(input => {
+                // Skip already locked correct inputs
+                if (input.readOnly) return;
+
+                const accepted = JSON.parse(input.dataset.answers).map(normalizeAnswer);
+                const userVal = normalizeAnswer(input.value);
+
+                input.classList.remove('is-incorrect', 'is-correct');
+
+                if (userVal !== '' && accepted.includes(userVal)) {
+                    input.classList.add('is-correct');
+                    input.readOnly = true;
+                } else {
+                    input.classList.add('is-incorrect');
+                    // Preserve student's typed text so they can edit and retry
+                    if (countAsAttempt) {
+                        roundMistakes++;
+                    }
+                }
+            });
+
+            if (countAsAttempt) {
+                totalMistakes += roundMistakes;
+            }
+
+            const summary = computeScoreSummary();
+            renderScoreBanner(summary);
+            return summary;
+        }
+
+        function computeScoreSummary() {
+            const exercise = EXERCISES[currentExerciseId];
+            const totalSentences = exercise.sentences.length;
+            let correctSentences = 0;
+            let totalBlanks = 0;
+            let correctBlanks = 0;
+
+            exercise.sentences.forEach((_, sIdx) => {
+                const sInputs = Array.from(sentencesContainer.querySelectorAll(`.blank-input[data-sentence-index="${sIdx}"]`));
+                let allSentenceBlanksCorrect = true;
+
+                sInputs.forEach(inp => {
+                    totalBlanks++;
+                    if (inp.readOnly && inp.classList.contains('is-correct')) {
+                        correctBlanks++;
+                    } else {
+                        allSentenceBlanksCorrect = false;
+                    }
+                });
+
+                if (sInputs.length > 0 && allSentenceBlanksCorrect) {
+                    correctSentences++;
+                }
+            });
+
+            return {
+                totalSentences,
+                correctSentences,
+                totalBlanks,
+                correctBlanks
+            };
+        }
+
+        function renderScoreBanner(summary) {
+            scoreBanner.classList.remove('hidden');
+
+            if (summary.correctSentences === summary.totalSentences) {
+                scoreHeadline.textContent = `Score: ${summary.correctSentences} / ${summary.totalSentences} correct — Perfect!`;
+                scoreSubtext.textContent = `All ${summary.totalBlanks} blanks are correct. You are ready to send your results to your teacher.`;
+            } else {
+                scoreHeadline.textContent = `Score: ${summary.correctSentences} / ${summary.totalSentences} sentences correct`;
+                scoreSubtext.textContent = `${summary.correctBlanks} of ${summary.totalBlanks} blanks completed accurately. Review the highlighted red fields and try again.`;
+            }
+
+            updateStatsBarOnly();
+        }
+
+        function updateStatsBarOnly() {
+            statAttempts.textContent = `Attempts: ${checkAttempts}`;
+            statMistakes.textContent = `Mistakes: ${totalMistakes}`;
+            statHints.textContent = `Hints used: ${hintsOpenedSet.size}`;
+        }
+
+        // === STATUS FEEDBACK BANNER ===
+        function showStatusMessage(type, text) {
+            statusMessage.classList.remove(
+                'hidden',
+                'bg-[#ECFDF5]', 'border-[#A7F3D0]', 'text-[#065F46]',
+                'bg-[#FEF2F2]', 'border-[#FECACA]', 'text-[#991B1B]',
+                'bg-[#FBF7EE]', 'border-[#E5DFD3]', 'text-[#735D3B]'
+            );
+
+            if (type === 'success') {
+                statusMessage.classList.add('bg-[#ECFDF5]', 'border-[#A7F3D0]', 'text-[#065F46]');
+                statusIcon.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+            } else if (type === 'error') {
+                statusMessage.classList.add('bg-[#FEF2F2]', 'border-[#FECACA]', 'text-[#991B1B]');
+                statusIcon.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+            } else {
+                statusMessage.classList.add('bg-[#FBF7EE]', 'border-[#E5DFD3]', 'text-[#735D3B]');
+                statusIcon.innerHTML = `<svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>`;
+            }
+
+            statusText.textContent = text;
+        }
+
+        function hideStatusMessage() {
+            statusMessage.classList.add('hidden');
+        }
+
+        // === TELEGRAM BOT SUBMISSION ===
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function buildTelegramReport(studentName, summary) {
+            const exercise = EXERCISES[currentExerciseId];
+            const lines = [];
+
+            lines.push(`🎮 <b>Conditionals — ${escapeHtml(exercise.badge)}: ${escapeHtml(exercise.title)}</b>`);
+            lines.push(`👤 <b>Student:</b> ${escapeHtml(studentName)}`);
+            lines.push(`✅ <b>Final Score:</b> ${summary.correctSentences}/${summary.totalSentences} sentences (${summary.correctBlanks}/${summary.totalBlanks} blanks)`);
+            lines.push(`🔄 <b>Check Attempts:</b> ${checkAttempts} | ❌ <b>Mistakes:</b> ${totalMistakes} | 💡 <b>Hints Used:</b> ${hintsOpenedSet.size}`);
+            lines.push('');
+            lines.push('📝 <b>Student Answers:</b>');
+
+            exercise.sentences.forEach((sentence, sIdx) => {
+                const sInputs = Array.from(sentencesContainer.querySelectorAll(`.blank-input[data-sentence-index="${sIdx}"]`));
+                const blankStatuses = sInputs.map(inp => {
+                    const isCorrect = inp.readOnly && inp.classList.contains('is-correct');
+                    const typed = inp.value.trim() || '—';
+                    return `${isCorrect ? '✅' : '❌'} <code>${escapeHtml(typed)}</code>`;
+                });
+                lines.push(`${sIdx + 1}. ${blankStatuses.join(' | ')}`);
+            });
+
+            return lines.join('\n');
+        }
+
+        async function sendResultsToTeacher() {
+            const studentName = exerciseNameInput.value.trim();
+
+            // 1. Validate Student Name
+            if (!studentName) {
+                exerciseNameInput.classList.add('name-error');
+                exerciseNameInput.focus();
+                exerciseNameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                showStatusMessage('error', 'Please enter your name before sending results.');
+                return;
+            }
+
+            // 2. Ensure answers are checked and up-to-date
+            const shouldCountAttempt = checkAttempts === 0;
+            const summary = checkAnswers(shouldCountAttempt);
+
+            // 3. Check if Telegram Bot Token & Chat ID have been configured
+            if (
+                !TELEGRAM_BOT_TOKEN ||
+                !TELEGRAM_CHAT_ID ||
+                TELEGRAM_BOT_TOKEN === 'ВСТАВ_ТОКЕН_СЮДИ' ||
+                TELEGRAM_CHAT_ID === 'ВСТАВ_ID_СЮДИ'
+            ) {
+                showStatusMessage(
+                    'error',
+                    'Telegram Bot is not configured yet. Please ask your teacher to add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in the page script.'
+                );
+                return;
+            }
+
+            // 4. Send formatted HTML message via Telegram Bot API
+            const messageHtml = buildTelegramReport(studentName, summary);
+            const endpoint = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+            btnSendTelegram.disabled = true;
+            btnSendLabel.textContent = 'Sending...';
+            showStatusMessage('loading', 'Sending your results to your teacher...');
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: messageHtml,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.ok) {
+                    showStatusMessage('success', 'Results sent to your teacher successfully!');
+                } else {
+                    const apiError = result && result.description ? result.description : 'Unknown Telegram API error.';
+                    showStatusMessage('error', `Could not send results: ${apiError}`);
+                }
+            } catch (error) {
+                showStatusMessage(
+                    'error',
+                    'Network error while sending results. Please check your internet connection and try again.'
+                );
+            } finally {
+                btnSendTelegram.disabled = false;
+                btnSendLabel.textContent = 'Send Results to Teacher';
+            }
+        }
+
+        // Start app
+        initNameSync();
+    </script>
+</body>
+</html>
